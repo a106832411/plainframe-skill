@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>06 极光</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "YH"; src: local("Microsoft YaHei"); }
+      @font-face { font-family: "Mono"; src: local("Consolas"); }
+      @font-face { font-family: "Kai"; src: local("KaiTi"); }
+      @font-face { font-family: "Song"; src: local("SimSun"); }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; background: #000; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden;
+        background: #04080F; font-family: YH, sans-serif; color: #E6FBF6; }
+      .kick { position: absolute; left: 96px; top: 64px; font-family: Mono; font-size: 14px; letter-spacing: 7px; color: #46E0C0; }
+      .idx { position: absolute; right: 96px; top: 64px; font-family: Mono; font-size: 12px; letter-spacing: 5px; color: #E6FBF6; opacity: 0.42; }
+      .rule { position: absolute; left: 96px; right: 96px; height: 1px; background: #E6FBF6; opacity: 0.15; }
+      .title { font-weight: 800; letter-spacing: 2px; line-height: 1.08; font-size: 150px; }
+      .sub { font-family: Mono; font-size: 26px; letter-spacing: 3px; opacity: 0.6; }
+      .note { position: absolute; font-size: 22px; letter-spacing: 2px; opacity: 0.5; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="style-06" data-width="1920" data-height="1080" data-duration="5">
+
+      <div class="kick">06 · 极光</div><div class="idx">AURORA</div>
+      <div class="title" id="t" style="position:absolute;left:96px;top:250px;width:1100px">会失控</div>
+      <div class="sub" id="s" style="position:absolute;left:100px;top:640px">它自己会走下去</div>
+      <div class="note" style="left:100px;bottom:70px">渐层柔光，几乎没有硬边</div>
+      <svg width="1920" height="1080" viewBox="0 0 1920 1080" style="position:absolute;inset:0">
+        <ellipse cx="1100" cy="360" rx="620" ry="220" fill="#46E0C0" opacity="0.30"/><ellipse cx="1300" cy="640" rx="560" ry="180" fill="#7C6BFF" opacity="0.28"/><path d="M 0 860 Q 700 740 1920 840" fill="none" stroke="#E6FBF6" stroke-width="2" opacity="0.3"/>
+      </svg>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.from("#t", { y: 30, opacity: 0, duration: 0.7, ease: "power3.out" }, 0.1);
+      tl.from("#s", { y: 14, opacity: 0, duration: 0.5, ease: "power2.out" }, 0.4);
+      tl.from("svg *", { opacity: 0, duration: 0.8, stagger: 0.05, ease: "power2.out" }, 0.45);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["style-06"] = tl;
+    </script>
+  </body>
+</html>

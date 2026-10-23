@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>14 冰窟蓝</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "YH"; src: local("Microsoft YaHei"); }
+      @font-face { font-family: "Mono"; src: local("Consolas"); }
+      @font-face { font-family: "Kai"; src: local("KaiTi"); }
+      @font-face { font-family: "Song"; src: local("SimSun"); }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; background: #000; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden;
+        background: #08121A; font-family: YH, sans-serif; color: #DCEBF5; }
+      .kick { position: absolute; left: 96px; top: 64px; font-family: Mono; font-size: 14px; letter-spacing: 7px; color: #F2A65A; }
+      .idx { position: absolute; right: 96px; top: 64px; font-family: Mono; font-size: 12px; letter-spacing: 5px; color: #DCEBF5; opacity: 0.42; }
+      .rule { position: absolute; left: 96px; right: 96px; height: 1px; background: #DCEBF5; opacity: 0.15; }
+      .title { font-weight: 900; letter-spacing: -2px; line-height: 1.08; font-size: 100px; }
+      .sub { font-family: Mono; font-size: 26px; letter-spacing: 3px; opacity: 0.6; }
+      .note { position: absolute; font-size: 22px; letter-spacing: 2px; opacity: 0.5; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="style-14" data-width="1920" data-height="1080" data-duration="5">
+
+      <div class="kick">14 · 冰窟蓝</div><div class="idx">ICE CAVE</div>
+      <div class="rule" style="top:150px"></div><div class="rule" style="top:980px"></div>
+      <div class="title" id="t" style="position:absolute;left:96px;top:330px;width:900px">热水<br>先结冰</div>
+      <div class="sub" id="s" style="position:absolute;left:100px;top:660px">90℃ / 20℃ · 同一个冰箱</div>
+      <div class="note" style="left:100px;bottom:70px">冷底 + 冰白 + 唯一暖色</div>
+      <svg width="1920" height="1080" viewBox="0 0 1920 1080" style="position:absolute;inset:0">
+        <path d="M 1360 300 L 1400 780 L 1700 780 L 1740 300 Z" fill="none" stroke="#F2A65A" stroke-width="4"/><ellipse cx="1550" cy="300" rx="190" ry="26" fill="none" stroke="#F2A65A" stroke-width="4"/><rect x="1374" y="520" width="352" height="250" fill="#F2A65A" opacity="0.16"/><path d="M 1480 260 q -18 -40 8 -76 M 1550 244 q -18 -46 8 -86 M 1620 260 q -18 -40 8 -76" fill="none" stroke="#F2A65A" stroke-width="4" opacity="0.7"/>
+      </svg>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.from("#t", { y: 30, opacity: 0, duration: 0.7, ease: "power3.out" }, 0.1);
+      tl.from("#s", { y: 14, opacity: 0, duration: 0.5, ease: "power2.out" }, 0.4);
+      tl.from("svg *", { opacity: 0, duration: 0.8, stagger: 0.05, ease: "power2.out" }, 0.45);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["style-14"] = tl;
+    </script>
+  </body>
+</html>

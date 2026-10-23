@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>01 鎏金暗场</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "YH"; src: local("Microsoft YaHei"); }
+      @font-face { font-family: "Mono"; src: local("Consolas"); }
+      @font-face { font-family: "Kai"; src: local("KaiTi"); }
+      @font-face { font-family: "Song"; src: local("SimSun"); }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; background: #000; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden;
+        background: #0B0908; font-family: YH, sans-serif; color: #EDE3D0; }
+      .kick { position: absolute; left: 96px; top: 64px; font-family: Mono; font-size: 14px; letter-spacing: 7px; color: #DDBD74; }
+      .idx { position: absolute; right: 96px; top: 64px; font-family: Mono; font-size: 12px; letter-spacing: 5px; color: #EDE3D0; opacity: 0.42; }
+      .rule { position: absolute; left: 96px; right: 96px; height: 1px; background: #EDE3D0; opacity: 0.15; }
+      .title { font-weight: 900; letter-spacing: 2px; line-height: 1.08; font-size: 112px; }
+      .sub { font-family: Mono; font-size: 26px; letter-spacing: 3px; opacity: 0.6; }
+      .note { position: absolute; font-size: 22px; letter-spacing: 2px; opacity: 0.5; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="style-01" data-width="1920" data-height="1080" data-duration="5">
+
+      <div class="kick">01 · 鎏金暗场</div><div class="idx">GOLD NO.01</div>
+      <div class="rule" style="top:150px"></div><div class="rule" style="top:980px"></div>
+      <div class="title" id="t" style="position:absolute;left:96px;top:330px;width:900px">先生气<br>后找理由</div>
+      <div class="sub" id="s" style="position:absolute;left:100px;top:660px">情绪为什么失控</div>
+      <div class="note" style="left:100px;bottom:70px">深底 + 鎏金字 + 一点朱红</div>
+      <svg width="1920" height="1080" viewBox="0 0 1920 1080" style="position:absolute;inset:0">
+        <path d="M 1180 560 L 1260 560 L 1300 450 L 1340 670 L 1380 560 L 1560 560 L 1600 480 L 1640 640 L 1680 560 L 1790 560" fill="none" stroke="#DDBD74" stroke-width="4"/>
+      </svg>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.from("#t", { y: 30, opacity: 0, duration: 0.7, ease: "power3.out" }, 0.1);
+      tl.from("#s", { y: 14, opacity: 0, duration: 0.5, ease: "power2.out" }, 0.4);
+      tl.from("svg *", { opacity: 0, duration: 0.8, stagger: 0.05, ease: "power2.out" }, 0.45);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["style-01"] = tl;
+    </script>
+  </body>
+</html>

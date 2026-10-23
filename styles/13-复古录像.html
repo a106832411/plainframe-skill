@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>13 复古录像</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "YH"; src: local("Microsoft YaHei"); }
+      @font-face { font-family: "Mono"; src: local("Consolas"); }
+      @font-face { font-family: "Kai"; src: local("KaiTi"); }
+      @font-face { font-family: "Song"; src: local("SimSun"); }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; background: #000; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden;
+        background: #0B0B0B; font-family: Mono, sans-serif; color: #F5F5F0; }
+      .kick { position: absolute; left: 96px; top: 64px; font-family: Mono; font-size: 14px; letter-spacing: 7px; color: #38E8FF; }
+      .idx { position: absolute; right: 96px; top: 64px; font-family: Mono; font-size: 12px; letter-spacing: 5px; color: #F5F5F0; opacity: 0.42; }
+      .rule { position: absolute; left: 96px; right: 96px; height: 1px; background: #F5F5F0; opacity: 0.15; }
+      .title { font-weight: 700; letter-spacing: 3px; line-height: 1.08; font-size: 100px; }
+      .sub { font-family: Mono; font-size: 26px; letter-spacing: 3px; opacity: 0.6; }
+      .note { position: absolute; font-size: 22px; letter-spacing: 2px; opacity: 0.5; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="style-13" data-width="1920" data-height="1080" data-duration="5">
+
+      <div class="kick">13 · 复古录像</div><div class="idx">VHS 1987</div>
+      <div class="title" id="t" style="position:absolute;left:96px;top:250px;width:1100px">这一段<br>被录下来了</div>
+      <div class="sub" id="s" style="position:absolute;left:100px;top:640px">REC 00:00:30</div>
+      <div class="note" style="left:100px;bottom:70px">青橙色差 + 扫描线</div>
+      <svg width="1920" height="1080" viewBox="0 0 1920 1080" style="position:absolute;inset:0">
+        <g opacity="0.5"><rect x="0" y="300" width="1920" height="4" fill="#38E8FF"/><rect x="0" y="760" width="1920" height="4" fill="#FF6A3D"/></g><text x="120" y="1000" font-family="Mono" font-size="30" fill="#38E8FF">REC ● 00:00:30</text>
+      </svg>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.from("#t", { y: 30, opacity: 0, duration: 0.7, ease: "power3.out" }, 0.1);
+      tl.from("#s", { y: 14, opacity: 0, duration: 0.5, ease: "power2.out" }, 0.4);
+      tl.from("svg *", { opacity: 0, duration: 0.8, stagger: 0.05, ease: "power2.out" }, 0.45);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["style-13"] = tl;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,34 @@
+{
+  "name": "plainframe-skill",
+  "displayName": "plainframe · 中文科普短视频",
+  "version": "2.1.0",
+  "type": "bundle",
+  "description": "用 HTML + GSAP 做中文科普短视频：口播 / 无口播两条路线，18 套风格，自带拍表与自检。",
+  "author": { "name": "茄幽幽dumato", "url": "https://github.com/a106832411/plainframe-skill" },
+  "license": "MIT",
+  "entry": { "skill": "SKILL.md", "memory": "MEMORY.md", "readme": "README.md" },
+  "bundle": {
+    "kind": "composite-skill",
+    "members": [
+      { "path": "SKILL.md", "role": "skill" },
+      { "path": "MEMORY.md", "role": "memory" },
+      { "path": "CHECKLIST.md", "role": "prompt" },
+      { "path": "styles/", "role": "asset" },
+      { "path": "previews/", "role": "asset" },
+      { "path": "templates/", "role": "script" },
+      { "path": "tools/", "role": "script" },
+      { "path": "docs/", "role": "doc" }
+    ]
+  },
+  "permissions": {
+    "filesystem": ["workspace"],
+    "shell": true,
+    "network": true
+  },
+  "requires": {
+    "node": ">=22",
+    "python": ">=3.10",
+    "bin": ["ffmpeg", "hyperframes"]
+  },
+  "keywords": ["科普短视频", "hyperframes", "gsap", "分镜", "无口播"]
+}

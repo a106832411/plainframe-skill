@@ -1,0 +1,27 @@
+{
+  "name": "plainframe-skill",
+  "version": "2.1.0",
+  "type": "skill",
+  "entry": "SKILL.md",
+  "memory": "MEMORY.md",
+  "description": "用 HTML + GSAP 做中文科普短视频，两条路线（口播 / 无口播），18 套风格，含拍表转换与自动自检。",
+  "keywords": ["科普视频", "分镜", "hyperframes", "gsap", "无口播", "短视频"],
+  "bundle": {
+    "composite": true,
+    "parts": [
+      "SKILL.md",
+      "MEMORY.md",
+      "CHECKLIST.md",
+      "styles",
+      "previews",
+      "templates",
+      "tools",
+      "docs",
+      "dist/plainframe-all.md"
+    ]
+  },
+  "install": {
+    "path": "~/.dsh/skills/plainframe-skill",
+    "singleFile": "dist/plainframe-all.md"
+  }
+}

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>03 示波器</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "YH"; src: local("Microsoft YaHei"); }
+      @font-face { font-family: "Mono"; src: local("Consolas"); }
+      @font-face { font-family: "Kai"; src: local("KaiTi"); }
+      @font-face { font-family: "Song"; src: local("SimSun"); }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; background: #000; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden;
+        background: #030C0A; font-family: Mono, sans-serif; color: #5FE8C8; }
+      .kick { position: absolute; left: 96px; top: 64px; font-family: Mono; font-size: 14px; letter-spacing: 7px; color: #FFB347; }
+      .idx { position: absolute; right: 96px; top: 64px; font-family: Mono; font-size: 12px; letter-spacing: 5px; color: #5FE8C8; opacity: 0.42; }
+      .rule { position: absolute; left: 96px; right: 96px; height: 1px; background: #5FE8C8; opacity: 0.15; }
+      .title { font-weight: 700; letter-spacing: 5px; line-height: 1.08; font-size: 96px; }
+      .sub { font-family: Mono; font-size: 26px; letter-spacing: 3px; opacity: 0.6; }
+      .note { position: absolute; font-size: 22px; letter-spacing: 2px; opacity: 0.5; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="style-03" data-width="1920" data-height="1080" data-duration="5">
+
+      <div class="kick">03 · 示波器</div><div class="idx">OSCILLOSCOPE</div>
+      <div class="title" id="t" style="position:absolute;left:96px;top:250px;width:1100px">声音进来<br>先抄近路</div>
+      <div class="sub" id="s" style="position:absolute;left:100px;top:640px">12ms</div>
+      <div class="note" style="left:100px;bottom:70px">磷光绿 + 网格，波形铺满画面</div>
+      <svg width="1920" height="1080" viewBox="0 0 1920 1080" style="position:absolute;inset:0">
+        <g opacity="0.4"><line x1="0" y1="300" x2="1920" y2="300" stroke="#5FE8C8" stroke-width="1"/><line x1="0" y1="540" x2="1920" y2="540" stroke="#5FE8C8" stroke-width="1"/><line x1="0" y1="780" x2="1920" y2="780" stroke="#5FE8C8" stroke-width="1"/></g><path d="M 0 560 L 700 560 L 760 380 L 820 760 L 880 560 L 1300 540 L 1360 620 L 1420 500 L 1480 560 L 1920 560" fill="none" stroke="#FFB347" stroke-width="4"/>
+      </svg>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.from("#t", { y: 30, opacity: 0, duration: 0.7, ease: "power3.out" }, 0.1);
+      tl.from("#s", { y: 14, opacity: 0, duration: 0.5, ease: "power2.out" }, 0.4);
+      tl.from("svg *", { opacity: 0, duration: 0.8, stagger: 0.05, ease: "power2.out" }, 0.45);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["style-03"] = tl;
+    </script>
+  </body>
+</html>

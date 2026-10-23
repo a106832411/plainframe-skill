@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "plainframe-skill",
+  "name": "plainframe",
+  "version": "2.1.0",
+  "kind": "skill-bundle",
+  "description": "用 HTML + GSAP 做中文科普短视频：口播 / 无口播，18 套风格。",
+  "entry": "SKILL.md",
+  "memory": "MEMORY.md",
+  "includes": [
+    "SKILL.md",
+    "MEMORY.md",
+    "CHECKLIST.md",
+    "README.md",
+    "styles/",
+    "previews/",
+    "templates/",
+    "tools/",
+    "docs/",
+    "dist/plainframe-all.md"
+  ],
+  "activation": {
+    "mode": "auto",
+    "keywords": ["科普视频", "分镜", "短视频", "hyperframes", "无口播"],
+    "commands": [
+      { "name": "plainframe:script", "description": "写文案与拍表" },
+      { "name": "plainframe:storyboard", "description": "出分镜页" },
+      { "name": "plainframe:render", "description": "渲染成片" }
+    ]
+  },
+  "requires": { "node": ">=22", "python": ">=3.10", "bin": ["ffmpeg"] }
+}

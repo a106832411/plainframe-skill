@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>18 胶片棕</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "YH"; src: local("Microsoft YaHei"); }
+      @font-face { font-family: "Mono"; src: local("Consolas"); }
+      @font-face { font-family: "Kai"; src: local("KaiTi"); }
+      @font-face { font-family: "Song"; src: local("SimSun"); }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; background: #000; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden;
+        background: #171008; font-family: Song, sans-serif; color: #EADCC0; }
+      .kick { position: absolute; left: 96px; top: 64px; font-family: Mono; font-size: 14px; letter-spacing: 7px; color: #D89B5A; }
+      .idx { position: absolute; right: 96px; top: 64px; font-family: Mono; font-size: 12px; letter-spacing: 5px; color: #EADCC0; opacity: 0.42; }
+      .rule { position: absolute; left: 96px; right: 96px; height: 1px; background: #EADCC0; opacity: 0.15; }
+      .title { font-weight: 700; letter-spacing: 2px; line-height: 1.08; font-size: 112px; }
+      .sub { font-family: Mono; font-size: 26px; letter-spacing: 3px; opacity: 0.6; }
+      .note { position: absolute; font-size: 22px; letter-spacing: 2px; opacity: 0.5; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="style-18" data-width="1920" data-height="1080" data-duration="5">
+
+      <div class="kick">18 · 胶片棕</div><div class="idx">35MM</div>
+      <div class="rule" style="top:150px"></div>
+      <div class="title" id="t" style="position:absolute;left:96px;bottom:250px;width:1000px">1987 年<br>夏天</div>
+      <div class="sub" id="s" style="position:absolute;left:100px;bottom:190px">KODAK 400</div>
+      <div class="note" style="left:100px;bottom:26px">暖褐 + 颗粒 + 齿孔</div>
+      <svg width="1920" height="1080" viewBox="0 0 1920 1080" style="position:absolute;inset:0">
+        <rect x="120" y="120" width="1680" height="840" fill="none" stroke="#EADCC0" stroke-width="2" opacity="0.3"/><g fill="#8B6A45"><rect x="140" y="180" width="18" height="26"/><rect x="140" y="300" width="18" height="26"/><rect x="140" y="420" width="18" height="26"/><rect x="140" y="540" width="18" height="26"/><rect x="140" y="660" width="18" height="26"/><rect x="1760" y="180" width="18" height="26"/><rect x="1760" y="300" width="18" height="26"/><rect x="1760" y="420" width="18" height="26"/><rect x="1760" y="540" width="18" height="26"/><rect x="1760" y="660" width="18" height="26"/></g><circle cx="960" cy="540" r="120" fill="none" stroke="#D89B5A" stroke-width="3" opacity="0.45"/>
+      </svg>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.from("#t", { y: 30, opacity: 0, duration: 0.7, ease: "power3.out" }, 0.1);
+      tl.from("#s", { y: 14, opacity: 0, duration: 0.5, ease: "power2.out" }, 0.4);
+      tl.from("svg *", { opacity: 0, duration: 0.8, stagger: 0.05, ease: "power2.out" }, 0.45);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["style-18"] = tl;
+    </script>
+  </body>
+</html>

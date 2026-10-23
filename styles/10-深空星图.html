@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>10 深空星图</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "YH"; src: local("Microsoft YaHei"); }
+      @font-face { font-family: "Mono"; src: local("Consolas"); }
+      @font-face { font-family: "Kai"; src: local("KaiTi"); }
+      @font-face { font-family: "Song"; src: local("SimSun"); }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; background: #000; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden;
+        background: #05070E; font-family: YH, sans-serif; color: #DCE8FF; }
+      .kick { position: absolute; left: 96px; top: 64px; font-family: Mono; font-size: 14px; letter-spacing: 7px; color: #4D8CFF; }
+      .idx { position: absolute; right: 96px; top: 64px; font-family: Mono; font-size: 12px; letter-spacing: 5px; color: #DCE8FF; opacity: 0.42; }
+      .rule { position: absolute; left: 96px; right: 96px; height: 1px; background: #DCE8FF; opacity: 0.15; }
+      .title { font-weight: 800; letter-spacing: 2px; line-height: 1.08; font-size: 110px; }
+      .sub { font-family: Mono; font-size: 26px; letter-spacing: 3px; opacity: 0.6; }
+      .note { position: absolute; font-size: 22px; letter-spacing: 2px; opacity: 0.5; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="style-10" data-width="1920" data-height="1080" data-duration="5">
+
+      <div class="kick">10 · 深空星图</div><div class="idx">DEEP FIELD</div>
+      <div class="title" id="t" style="position:absolute;left:96px;top:250px;width:1100px">尺度<br>比你想的大</div>
+      <div class="sub" id="s" style="position:absolute;left:100px;top:640px">1 : 10¹⁸</div>
+      <div class="note" style="left:100px;bottom:70px">星点 + 轨道 + 尺度标尺</div>
+      <svg width="1920" height="1080" viewBox="0 0 1920 1080" style="position:absolute;inset:0">
+        <circle cx="1300" cy="330" r="3" fill="#DCE8FF"/><circle cx="1450" cy="470" r="4" fill="#DCE8FF"/><circle cx="1150" cy="620" r="3" fill="#DCE8FF"/><circle cx="1600" cy="700" r="3" fill="#DCE8FF"/><circle cx="1000" cy="420" r="4" fill="#DCE8FF"/><circle cx="1400" cy="800" r="3" fill="#DCE8FF"/><circle cx="1250" cy="560" r="150" fill="none" stroke="#4D8CFF" stroke-width="2" stroke-dasharray="10 12"/><circle cx="1250" cy="560" r="14" fill="#FF7A3D"/>
+      </svg>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.from("#t", { y: 30, opacity: 0, duration: 0.7, ease: "power3.out" }, 0.1);
+      tl.from("#s", { y: 14, opacity: 0, duration: 0.5, ease: "power2.out" }, 0.4);
+      tl.from("svg *", { opacity: 0, duration: 0.8, stagger: 0.05, ease: "power2.out" }, 0.45);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["style-10"] = tl;
+    </script>
+  </body>
+</html>

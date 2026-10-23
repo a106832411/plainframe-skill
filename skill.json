@@ -1,0 +1,54 @@
+{
+  "name": "plainframe-skill",
+  "displayName": "plainframe · 中文科普短视频技能",
+  "version": "2.1.0",
+  "updated": "2026-10-22",
+  "entry": "SKILL.md",
+  "singleFile": "dist/plainframe-all.md",
+  "summary": "用代码做中文科普短视频：两条路线（口播 / 无口播），18 套风格，自带自检工具。",
+  "keywords": [
+    "科普短视频",
+    "HyperFrames",
+    "GSAP",
+    "分镜",
+    "TTS",
+    "抖音",
+    "explainer"
+  ],
+  "requires": {
+    "node": ">=22",
+    "ffmpeg": true,
+    "python": [
+      "numpy"
+    ],
+    "npm": [
+      "msedge-tts（仅口播版需要）"
+    ],
+    "cli": [
+      "hyperframes"
+    ],
+    "browser": "chrome-headless-shell（通过 HYPERFRAMES_BROWSER_PATH 指定）"
+  },
+  "install": {
+    "doubao": "把整个文件夹放到工作区，让 Agent 阅读 SKILL.md",
+    "deepseek": "把 SKILL.md 或 dist/plainframe-all.md 作为上下文/知识库导入",
+    "workbuddy": "把文件夹放进 skills 目录，触发词：科普视频 / 分镜 / 出片",
+    "qoder": "把文件夹放进项目 .qoder/skills/ 或直接 @SKILL.md",
+    "generic": "任何能读文件的 Agent：读 SKILL.md 即可（单文件版见 dist/plainframe-all.md）"
+  },
+  "layout": {
+    "SKILL.md": "主文档：工作流 + 18 套风格 + 动效引擎 + 文字排布 + 画面密度 + 两条路线 + 踩坑",
+    "CHECKLIST.md": "出片前逐项检查",
+    "styles/": "18 套可运行风格样例（5 秒单场景）",
+    "templates/": "脚手架：骨架 / 构建 / 配音 / 混音 / 抽帧",
+    "dist/plainframe-all.md": "把所有内容打成一个文件，方便一键喂给模型",
+    "_tools/": "开发用脚本（生成风格、打包），使用时可忽略",
+    "tools/": "beats.py（拍表→时间线）、sheet.py（抽帧联系表）、qa.py（自动自检）",
+    "previews/": "18 张风格预览图",
+    "MEMORY.md": "一页规则：写作、画面、踩坑、交付、命令",
+    "platforms/": "四个平台的插件/组合包清单",
+    "docs/插件打包.md": "组合包声明与打包命令"
+  },
+  "memory": "MEMORY.md",
+  "howto_plugin": "平台提示「没有声明组合包」时：把 platforms/<平台>/ 下的清单复制到包根目录并按平台要求改名"
+}

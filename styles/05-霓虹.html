@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>05 霓虹</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "YH"; src: local("Microsoft YaHei"); }
+      @font-face { font-family: "Mono"; src: local("Consolas"); }
+      @font-face { font-family: "Kai"; src: local("KaiTi"); }
+      @font-face { font-family: "Song"; src: local("SimSun"); }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; background: #000; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden;
+        background: #07040C; font-family: YH, sans-serif; color: #FFE9F4; }
+      .kick { position: absolute; left: 96px; top: 64px; font-family: Mono; font-size: 14px; letter-spacing: 7px; color: #FF3D8B; }
+      .idx { position: absolute; right: 96px; top: 64px; font-family: Mono; font-size: 12px; letter-spacing: 5px; color: #FFE9F4; opacity: 0.42; }
+      .rule { position: absolute; left: 96px; right: 96px; height: 1px; background: #FFE9F4; opacity: 0.15; }
+      .title { font-weight: 900; letter-spacing: 3px; line-height: 1.08; font-size: 108px; }
+      .sub { font-family: Mono; font-size: 26px; letter-spacing: 3px; opacity: 0.6; }
+      .note { position: absolute; font-size: 22px; letter-spacing: 2px; opacity: 0.5; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="style-05" data-width="1920" data-height="1080" data-duration="5">
+
+      <div class="kick">05 · 霓虹</div><div class="idx">NEON</div>
+      <div class="title" id="t" style="position:absolute;left:96px;top:250px;width:1100px">这行字<br>你不一定看得清</div>
+      <div class="sub" id="s" style="position:absolute;left:100px;top:640px">NEON / 24H</div>
+      <div class="note" style="left:100px;bottom:70px">黑底霓虹管 + 同心环</div>
+      <svg width="1920" height="1080" viewBox="0 0 1920 1080" style="position:absolute;inset:0">
+        <circle cx="1460" cy="560" r="300" fill="none" stroke="#FF3D8B" stroke-width="6" opacity="0.85"/><circle cx="1460" cy="560" r="230" fill="none" stroke="#38E8FF" stroke-width="3" stroke-dasharray="14 12" opacity="0.8"/><circle cx="1460" cy="560" r="14" fill="#38E8FF"/>
+      </svg>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.from("#t", { y: 30, opacity: 0, duration: 0.7, ease: "power3.out" }, 0.1);
+      tl.from("#s", { y: 14, opacity: 0, duration: 0.5, ease: "power2.out" }, 0.4);
+      tl.from("svg *", { opacity: 0, duration: 0.8, stagger: 0.05, ease: "power2.out" }, 0.45);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["style-05"] = tl;
+    </script>
+  </body>
+</html>

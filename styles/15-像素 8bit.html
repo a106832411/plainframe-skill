@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>15 像素 8bit</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "YH"; src: local("Microsoft YaHei"); }
+      @font-face { font-family: "Mono"; src: local("Consolas"); }
+      @font-face { font-family: "Kai"; src: local("KaiTi"); }
+      @font-face { font-family: "Song"; src: local("SimSun"); }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; background: #000; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden;
+        background: #101018; font-family: Mono, sans-serif; color: #E8E8F0; }
+      .kick { position: absolute; left: 96px; top: 64px; font-family: Mono; font-size: 14px; letter-spacing: 7px; color: #FFD23F; }
+      .idx { position: absolute; right: 96px; top: 64px; font-family: Mono; font-size: 12px; letter-spacing: 5px; color: #E8E8F0; opacity: 0.42; }
+      .rule { position: absolute; left: 96px; right: 96px; height: 1px; background: #E8E8F0; opacity: 0.15; }
+      .title { font-weight: 700; letter-spacing: 6px; line-height: 1.08; font-size: 150px; }
+      .sub { font-family: Mono; font-size: 26px; letter-spacing: 3px; opacity: 0.6; }
+      .note { position: absolute; font-size: 22px; letter-spacing: 2px; opacity: 0.5; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="style-15" data-width="1920" data-height="1080" data-duration="5">
+
+      <div class="kick">15 · 像素 8bit</div><div class="idx">PIXEL 8BIT</div>
+      <div class="rule" style="top:150px"></div><div class="rule" style="top:980px"></div>
+      <div class="title" id="t" style="position:absolute;left:0;right:0;top:390px;text-align:center">8-BIT</div>
+      <div class="sub" id="s" style="position:absolute;left:0;right:0;top:680px;text-align:center">PRESS START</div>
+      <div class="note" style="left:0;right:0;bottom:70px;text-align:center">有限色板 + 方块构图</div>
+      <svg width="1920" height="1080" viewBox="0 0 1920 1080" style="position:absolute;inset:0">
+        <g><rect x="1120" y="360" width="72" height="72" fill="#FFD23F"/><rect x="1192" y="432" width="72" height="72" fill="#E8E8F0"/><rect x="1264" y="360" width="72" height="72" fill="#E8E8F0"/><rect x="1336" y="432" width="72" height="72" fill="#3FBF8F"/><rect x="1408" y="360" width="72" height="72" fill="#E8E8F0" opacity="0.55"/><rect x="1480" y="432" width="72" height="72" fill="#FFD23F"/></g>
+      </svg>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.from("#t", { y: 30, opacity: 0, duration: 0.7, ease: "power3.out" }, 0.1);
+      tl.from("#s", { y: 14, opacity: 0, duration: 0.5, ease: "power2.out" }, 0.4);
+      tl.from("svg *", { opacity: 0, duration: 0.8, stagger: 0.05, ease: "power2.out" }, 0.45);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["style-15"] = tl;
+    </script>
+  </body>
+</html>

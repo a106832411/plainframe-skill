@@ -1,0 +1,37 @@
+{
+  "manifestVersion": "1.0",
+  "id": "plainframe-skill",
+  "name": "plainframe · 中文科普短视频",
+  "version": "2.1.0",
+  "description": "用 HTML + GSAP 做中文科普短视频：两条路线（口播 / 无口播）、18 套风格、拍表与自检工具。",
+  "author": "茄幽幽dumato",
+  "homepage": "https://github.com/a106832411/plainframe-skill",
+  "license": "MIT",
+  "entry": "SKILL.md",
+  "memory": "MEMORY.md",
+  "bundle": {
+    "type": "composite",
+    "components": [
+      { "type": "skill", "id": "plainframe", "entry": "SKILL.md", "memory": "MEMORY.md" },
+      { "type": "prompts", "id": "checklist", "entry": "CHECKLIST.md" },
+      { "type": "assets", "id": "styles", "path": "styles" },
+      { "type": "assets", "id": "previews", "path": "previews" },
+      { "type": "scripts", "id": "templates", "path": "templates" },
+      { "type": "scripts", "id": "tools", "path": "tools" },
+      { "type": "docs", "id": "docs", "path": "docs" }
+    ]
+  },
+  "capabilities": ["file.read", "file.write", "shell.exec", "network.fetch"],
+  "requires": {
+    "runtime": ["node>=22", "python>=3.10", "ffmpeg"],
+    "npm": ["hyperframes", "msedge-tts（仅口播版）"],
+    "python": ["numpy", "pillow"]
+  },
+  "triggers": ["做一条科普视频", "出分镜", "出成片", "改 HyperFrames 工程", "无口播短片"],
+  "files": {
+    "entry": "SKILL.md",
+    "readme": "README.md",
+    "checklist": "CHECKLIST.md",
+    "single": "dist/plainframe-all.md"
+  }
+}

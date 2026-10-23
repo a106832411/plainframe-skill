@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>08 暗场几何</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "YH"; src: local("Microsoft YaHei"); }
+      @font-face { font-family: "Mono"; src: local("Consolas"); }
+      @font-face { font-family: "Kai"; src: local("KaiTi"); }
+      @font-face { font-family: "Song"; src: local("SimSun"); }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; background: #000; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden;
+        background: #12100E; font-family: YH, sans-serif; color: #EFE6D6; }
+      .kick { position: absolute; left: 96px; top: 64px; font-family: Mono; font-size: 14px; letter-spacing: 7px; color: #C98553; }
+      .idx { position: absolute; right: 96px; top: 64px; font-family: Mono; font-size: 12px; letter-spacing: 5px; color: #EFE6D6; opacity: 0.42; }
+      .rule { position: absolute; left: 96px; right: 96px; height: 1px; background: #EFE6D6; opacity: 0.15; }
+      .title { font-weight: 900; letter-spacing: -2px; line-height: 1.08; font-size: 104px; }
+      .sub { font-family: Mono; font-size: 26px; letter-spacing: 3px; opacity: 0.6; }
+      .note { position: absolute; font-size: 22px; letter-spacing: 2px; opacity: 0.5; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="style-08" data-width="1920" data-height="1080" data-duration="5">
+
+      <div class="kick">08 · 暗场几何</div><div class="idx">DARK GEOMETRY</div>
+      <div class="rule" style="top:150px"></div><div class="rule" style="top:980px"></div>
+      <div class="title" id="t" style="position:absolute;left:96px;top:330px;width:900px">水面<br>被盖住了</div>
+      <div class="sub" id="s" style="position:absolute;left:100px;top:660px">水位还在涨</div>
+      <div class="note" style="left:100px;bottom:70px">暖黑 + 米白线 + 咖啡棕</div>
+      <svg width="1920" height="1080" viewBox="0 0 1920 1080" style="position:absolute;inset:0">
+        <rect x="1240" y="240" width="480" height="560" fill="none" stroke="#EFE6D6" stroke-width="4"/><rect x="1250" y="470" width="460" height="320" fill="#5B8FBF" opacity="0.28"/><rect x="1200" y="440" width="560" height="26" fill="#C98553"/>
+      </svg>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.from("#t", { y: 30, opacity: 0, duration: 0.7, ease: "power3.out" }, 0.1);
+      tl.from("#s", { y: 14, opacity: 0, duration: 0.5, ease: "power2.out" }, 0.4);
+      tl.from("svg *", { opacity: 0, duration: 0.8, stagger: 0.05, ease: "power2.out" }, 0.45);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["style-08"] = tl;
+    </script>
+  </body>
+</html>
