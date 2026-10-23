@@ -44,6 +44,9 @@ for p in sorted(glob.glob(os.path.join(ROOT, "templates", "*"))):
             "ps1": "powershell", "tpl": "html"}.get(name.rsplit(".", 1)[-1], "")
     parts.append("\n### templates/%s\n\n```%s\n%s\n```\n" % (name, lang, read(p)))
 
+parts.append("\n---\n\n## 附录 D · 封面与标题\n")
+parts.append(read(os.path.join(ROOT, "docs", "封面与标题.md")))
+
 parts.append("\n---\n\n## 附录 C · 风格样例（仅色值与母题，完整代码见 styles/）\n")
 parts.append("| 文件 | 说明 |\n|---|---|\n")
 for p in sorted(glob.glob(os.path.join(ROOT, "styles", "*.html"))):

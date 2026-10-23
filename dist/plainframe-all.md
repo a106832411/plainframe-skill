@@ -531,6 +531,8 @@ _tts2/
 
 ## 十、交付习惯
 
+发布相关：标题 ≤40 字、`Vibe知识大赏｜` 开头；话题 = 大赏 + 领域 + 具体词；封面出 16:9 与 3:4 两张，规则见 `docs/封面与标题.md`，模板见 `templates/cover-16x9.html` / `cover-3x4.html`。
+
 - 成片放 `deliverables/`，文件名用中文描述（如 `情绪为什么失控-章节版.mp4`）；
 - 汇报时给：时长、体积、章节表、逐场动作表；
 - 主动说清**这版哪里还不理想**，不要假装完美；
@@ -639,9 +641,12 @@ _tts2/
 
 ## 七、发布
 
-- [ ] 标题 20 字以内，前 12 字有信息
-- [ ] 标签 3 个（大/中/精准各一）
+- [ ] 标题 ≤40 字（含 `Vibe知识大赏｜` 前缀），前 12 字有信息
+- [ ] 标签 3 个（大/中/精准各一，大赏标签固定）
 - [ ] 封面大字和标题不重复
+- [ ] 封面出了两张：16:9（1920×1080）与 3:4（1080×1440）
+- [ ] 两张封面的标题、副题、标签一致，只换版式
+- [ ] 封面放在工程 `发布/`，没有混进 `成品/`
 - [ ] 置顶评论补一个数据或一个反问
 
 ## 八、画面密度（借鉴 Vibe 知识大赏）
@@ -974,7 +979,7 @@ for sc in sorted(cuts):
 # 逐句揭示
 for r in rows:
     st = r["start"]
-    js.append('tl.to(".ln%d", { opacity: 1, y: 0, duration: 0.42, stagger: 0.07, ease: "power2.out" }, %s);'
+    js.append('tl.to(".ln%d", { opacity: 1, duration: 0.42, stagger: 0.07, ease: "power2.out" }, %s);'
               % (r["n"], P(st - 0.05)))
     js.append('tl.to(".ln%d.draw", { opacity: 1, strokeDashoffset: 0, duration: %s, ease: "power2.out" }, %s);'
               % (r["n"], P(max(0.6, min(1.8, r["end"] - st))), P(st - 0.05)))
@@ -1030,6 +1035,122 @@ while ($t -lt $dur - 0.3) {
   $t += $Step
 }
 Write-Output "duration=$dur frames=$i out=$Out"
+
+```
+
+### templates/cover-16x9.html
+
+```
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      @font-face { font-family: "YH"; src: local("Microsoft YaHei"); }
+      @font-face { font-family: "Mono"; src: local("Consolas"); }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: #05070E; }
+      #c { position: relative; width: 1920px; height: 1080px; overflow: hidden;
+        background: linear-gradient(180deg,#05070E 0%,#0A1430 30%,#2A1F4A 52%,#7A3020 74%,#D0653A 90%,#F2A65A 100%);
+        font-family: YH, sans-serif; color: #EAF2FF; }
+      .grain { position: absolute; inset: 0; opacity: 0.35;
+        background-image: radial-gradient(rgba(220,232,255,0.05) 1px, transparent 1px); background-size: 3px 3px; }
+      .vig { position: absolute; inset: 0;
+        background: radial-gradient(ellipse at 46% 45%, transparent 42%, rgba(0,0,0,0.55) 100%); }
+      .top { position: absolute; left: 96px; top: 64px; font-family: Mono; font-size: 22px;
+        letter-spacing: 8px; color: #4D8CFF; }
+      .no { position: absolute; right: 96px; top: 64px; font-family: Mono; font-size: 20px;
+        letter-spacing: 6px; color: rgba(234,242,255,0.45); }
+      h1 { position: absolute; left: 96px; top: 250px; font-size: 112px; font-weight: 900;
+        line-height: 1.14; letter-spacing: -3px; }
+      h1 .b { color: #7FB6FF; }
+      h1 .o { color: #FFB27A; }
+      .sub { position: absolute; left: 100px; top: 560px; font-size: 40px; letter-spacing: 1px;
+        color: rgba(234,242,255,0.85); }
+      .tag { position: absolute; left: 98px; top: 634px; display: inline-block; padding: 12px 24px;
+        border: 2px solid rgba(255,178,122,0.7); border-radius: 8px; font-size: 30px;
+        letter-spacing: 2px; color: #FFB27A; }
+      .line { position: absolute; left: 0; right: 0; top: 880px; height: 1px;
+        background: rgba(255,217,160,0.35); }
+      .sun { position: absolute; left: 1400px; top: 750px; width: 260px; height: 130px;
+        border-radius: 260px 260px 0 0; background: #FFD9A0;
+        box-shadow: 0 0 90px rgba(255,180,110,0.5); }
+      .foot { position: absolute; left: 98px; bottom: 52px; font-family: Mono; font-size: 22px;
+        letter-spacing: 5px; color: rgba(234,242,255,0.55); }
+    </style>
+  </head>
+  <body>
+    <div id="c">
+      <div class="grain"></div><div class="vig"></div>
+      <div class="top">SKY · 79s</div>
+      <div class="no">大气 · 光 · 颜色</div>
+      <h1>天空为什么是<span class="b">蓝</span>的<br />日落为什么是<span class="o">红</span>的</h1>
+      <div class="sub">同一束光，走了 38 倍的路</div>
+      <div class="tag">蓝光被抢走，红橙才到你眼睛</div>
+      <div class="line"></div>
+      <div class="sun"></div>
+      <div class="foot">看完你就知道，抬头该看什么</div>
+    </div>
+  </body>
+</html>
+
+```
+
+### templates/cover-3x4.html
+
+```
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      @font-face { font-family: "YH"; src: local("Microsoft YaHei"); }
+      @font-face { font-family: "Mono"; src: local("Consolas"); }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body { width: 1080px; height: 1440px; overflow: hidden; background: #05070E; }
+      #c { position: relative; width: 1080px; height: 1440px; overflow: hidden;
+        background: linear-gradient(180deg,#05070E 0%,#0A1430 26%,#2A1F4A 46%,#7A3020 68%,#D0653A 84%,#F2A65A 100%);
+        font-family: YH, sans-serif; color: #EAF2FF; }
+      .grain { position: absolute; inset: 0; opacity: 0.4;
+        background-image: radial-gradient(rgba(220,232,255,0.05) 1px, transparent 1px); background-size: 3px 3px; }
+      .vig { position: absolute; inset: 0;
+        background: radial-gradient(ellipse at 50% 42%, transparent 40%, rgba(0,0,0,0.55) 100%); }
+      .top { position: absolute; left: 72px; top: 64px; font-family: Mono; font-size: 24px;
+        letter-spacing: 8px; color: #4D8CFF; }
+      .no { position: absolute; right: 72px; top: 64px; font-family: Mono; font-size: 22px;
+        letter-spacing: 6px; color: rgba(234,242,255,0.45); }
+      h1 { position: absolute; left: 70px; top: 260px; font-size: 104px; font-weight: 900;
+        line-height: 1.16; letter-spacing: -3px; }
+      h1 .b { color: #7FB6FF; }
+      h1 .o { color: #FFB27A; }
+      .sub { position: absolute; left: 74px; top: 640px; font-size: 42px; letter-spacing: 1px;
+        color: rgba(234,242,255,0.85); }
+      .tag { position: absolute; left: 74px; top: 720px; display: inline-block; padding: 14px 26px;
+        border: 2px solid rgba(255,178,122,0.7); border-radius: 8px; font-size: 32px;
+        letter-spacing: 2px; color: #FFB27A; }
+      .line { position: absolute; left: 0; right: 0; top: 1150px; height: 1px;
+        background: rgba(255,217,160,0.35); }
+      .sun { position: absolute; left: 540px; top: 1020px; width: 260px; height: 130px;
+        border-radius: 260px 260px 0 0; background: #FFD9A0;
+        box-shadow: 0 0 90px rgba(255,180,110,0.55); }
+      .foot { position: absolute; left: 74px; bottom: 56px; font-family: Mono; font-size: 24px;
+        letter-spacing: 5px; color: rgba(234,242,255,0.55); }
+    </style>
+  </head>
+  <body>
+    <div id="c">
+      <div class="grain"></div><div class="vig"></div>
+      <div class="top">SKY · 79s</div>
+      <div class="no">大气 · 光 · 颜色</div>
+      <h1>天空为什么是<span class="b">蓝</span>的<br />日落为什么是<span class="o">红</span>的</h1>
+      <div class="sub">同一束光，走了 38 倍的路</div>
+      <div class="tag">蓝光被抢走，红橙才到你眼睛</div>
+      <div class="line"></div>
+      <div class="sun"></div>
+      <div class="foot">看完你就知道，抬头该看什么</div>
+    </div>
+  </body>
+</html>
 
 ```
 
@@ -1484,6 +1605,93 @@ with wave.open(__import__("os").environ.get("BGM_OUT", "bgm.wav"), "wb") as f:
 print("bgm ok", round(DUR, 1), "s  rms", round(20 * math.log10(np.sqrt(np.mean(mix ** 2)) + 1e-9), 1), "dBFS")
 
 ```
+
+---
+
+## 附录 D · 封面与标题
+# 封面与标题
+
+发布前最后一步：标题、话题、两张封面。这套规则和 `templates/cover-16x9.html`、`templates/cover-3x4.html` 配套用。
+
+---
+
+## 一、标题
+
+固定开头 `Vibe知识大赏｜`，后面接三段式：
+
+```
+Vibe知识大赏｜【现象】，不是【误因】，是因为【机制】。
+```
+
+示例：
+
+> Vibe知识大赏｜傍晚太阳压到地平线，整片天变橙红，不是太阳自己变红了，是因为蓝光在半路就被空气弹光，只剩红橙走到你眼睛里。
+
+**判据：**
+
+| 项 | 要求 |
+|---|---|
+| 现象 | 具体、能在画面上看到（“整片天变橙红”，不是“天空变色”） |
+| 误因 | 观众真会那么想的（“太阳自己变红了”）；没人信就整句塌 |
+| 机制 | 不许出现术语，用动作或比喻（“蓝光被弹光”） |
+| 长度 | ≤40 字（含 `Vibe知识大赏｜` 前缀）；抖音只露前两行，前两行要能独立成立 |
+
+---
+
+## 二、话题
+
+三条，第一条固定，后两条按片子换：
+
+```
+#Vibe知识大赏 #<领域> #<具体词>
+```
+
+| 位置 | 作用 | 示例 |
+|---|---|---|
+| 第一条 | 活动话题，**固定**，每条必带 | `#Vibe知识大赏` |
+| 第二条 | 领域，按选题换 | `#科普` `#天文` `#工程` `#人体` |
+| 第三条 | 具体词，越具体越容易被搜到 | `#瑞利散射` `#晚霞` `#影子` |
+
+换选题时只换后两个。想要泛流量可以把第三条换成 `#冷知识`、`#涨知识`，但**默认用具体词**：具体词搜索量小，转化更准。
+
+三条都别写死在文件里，按每条片子的选题填。
+
+---
+
+## 三、封面
+
+两种规格，同一套版式：
+
+两张都放工程 `发布/`，**不进 `成品/`**（成品只放成片）。
+
+| 规格 | 尺寸 | 用在哪 | 模板 |
+|---|---|---|---|
+| 16:9 | 1920×1080 | 横屏发布、播放页、B 站 / 西瓜 | `templates/cover-16x9.html` |
+| 3:4 | 1080×1440 | 抖音信息流、主页封面 | `templates/cover-3x4.html` |
+
+**版式规则：**
+
+- 左边标题：两行，主色词单独上色（“蓝”用蓝、“红”用橙），字号 16:9 用 112px、3:4 用 104px。
+- 标题下一行副题（一句机制），再下面一个描边标签框（一句结论）。
+- 右边或底部放主视觉（太阳、地平线），地平线压到画面 80% 高度，太阳只露半轮。
+- 顶部 mono 小字放时长/编号，底部留一句“看完得到什么”。
+- 背景用片子同一套渐变，不要另起一套色。
+
+**出图：**
+
+```powershell
+$chrome = "<chrome-headless-shell 路径>"
+& $chrome --headless --disable-gpu --hide-scrollbars `
+  --window-size=1920,1080 --screenshot="封面-16x9.png" --virtual-time-budget=4000 "cover-16x9.html"
+& $chrome --headless --disable-gpu --hide-scrollbars `
+  --window-size=1080,1440 --screenshot="封面-3x4.png" --virtual-time-budget=4000 "cover-3x4.html"
+```
+
+**检查：**
+
+- 缩到手机宽度（约 375px）时，标题是否还能读清；
+- 标题不压太阳、不压地平线；
+- 两张封面的标题、副标题、标签必须一致，只换版式。
 
 ---
 

@@ -96,7 +96,7 @@ for sc in sorted(cuts):
 # 逐句揭示
 for r in rows:
     st = r["start"]
-    js.append('tl.to(".ln%d", { opacity: 1, y: 0, duration: 0.42, stagger: 0.07, ease: "power2.out" }, %s);'
+    js.append('tl.to(".ln%d", { opacity: 1, duration: 0.42, stagger: 0.07, ease: "power2.out" }, %s);'
               % (r["n"], P(st - 0.05)))
     js.append('tl.to(".ln%d.draw", { opacity: 1, strokeDashoffset: 0, duration: %s, ease: "power2.out" }, %s);'
               % (r["n"], P(max(0.6, min(1.8, r["end"] - st))), P(st - 0.05)))
