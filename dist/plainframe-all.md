@@ -6,7 +6,7 @@
 {
   "name": "plainframe-skill",
   "displayName": "plainframe · 中文科普短视频技能",
-  "version": "2.6.0",
+  "version": "2.7.0",
   "updated": "2026-11-02",
   "entry": "SKILL.md",
   "singleFile": "dist/plainframe-all.md",
@@ -54,7 +54,7 @@
     "previews/": "18 张风格预览图",
     "MEMORY.md": "一页规则：写作、画面、踩坑、交付、命令",
     "platforms/": "四个平台的插件/组合包清单",
-    "docs/": "规则文档，按用途分三类：流程（母版 / 花叔设计法 / 锚词与重拍 / 风格库 / 商用与系列化）、发布（发布包：标题+话题+封面+配文 / 插件打包）、参考（参考拆解 / 七个仓库 / 与 vibe-169 的边界）；入口索引见 docs/README.md"
+    "docs/": "规则文档，按用途分三类：流程（母版 / 花叔设计法 / 锚词与重拍 / 风格库 / 商用与系列化 / 着色器与3D）、发布（发布包：标题+话题+封面+配文 / 插件打包）、参考（参考拆解 / 七个仓库 / 与 vibe-169 的边界）；入口索引见 docs/README.md"
   },
   "memory": "MEMORY.md",
   "howto_plugin": "平台提示「没有声明组合包」时：把 platforms/<平台>/ 下的清单复制到包根目录并按平台要求改名"
@@ -1977,6 +1977,107 @@ tl.fromTo("#new", { scale: 5 }, { scale: 1, duration: 0.5, ease: "power2.out" },
 
 ---
 
+## 附录 I · 着色器与 3D
+# 着色器与 3D
+
+> 2026-11-02 在 RX 7900 GRE 上实测：全屏光线步进（SDF 环面 + 软阴影）走 hyperframes 出片，
+> 90 帧 3 秒**总耗时 9.3 秒**，捕获阶段 3.5 秒 ≈ **39 ms/帧**。折算 154 秒成片约 **8 分钟**。
+
+---
+
+## 一、结论：能跑，不是软渲染
+
+| 项 | 实测值 |
+|---|---|
+| GPU 模式 | `hardware` — ANGLE / D3D11，渲染器 `AMD Radeon RX 7900 GRE` |
+| 并行 worker | `auto` → 3 个（每个一个 Chrome） |
+| 捕获模式 | `screenshot`（不是 `drawelement`） |
+| 单帧成本 | 39 ms（1080p，110 步光线步进 + 40 步软阴影） |
+| 同项目的纯 DOM 片子 | 约 66 ms/帧（同样是 1080p） |
+
+**比 DOM 还快**。原因不复杂：一个 canvas 的画面合成成本，比几十个 DOM 节点 + SVG 滤镜低。
+sy-styles-20 说「3D 风格 25–80 分钟」，那是**纯 CPU 软渲染**的数字；有独显走 ANGLE 完全不是一回事。
+
+---
+
+## 二、三条硬约束（不遵守就出废片）
+
+**1. 时间必须由时间线给，不能用 `performance.now()`**
+
+```js
+// ❌ 多 worker 各自跑各自的墙钟，帧序会错
+const t = performance.now() / 1000;
+
+// ✅ 时间从 GSAP 来，每一帧是 t 的纯函数
+const st = { t: 0 };
+tl.to(st, { t: duration, duration: duration, ease: "none",
+            onUpdate: () => { gl.uniform1f(uTime, st.t); draw(); } }, 0);
+```
+
+**2. WebGL context 必须开 `preserveDrawingBuffer`**
+
+不打开的话，截图发生在绘制缓冲被清掉之后 → 全黑帧。参数：
+
+```js
+const gl = cv.getContext("webgl", {
+  antialias: false, alpha: false, depth: false, stencil: false,
+  preserveDrawingBuffer: true, powerPreference: "high-performance"
+});
+```
+
+**3. 首帧要主动画一次**
+
+GSAP 的 `onUpdate` 只在时间线推进时触发；停在 0 秒截图时不会调用。所以注册时间线前先 `draw()` 一次。
+
+---
+
+## 三、什么时候值得用
+
+| 情况 | 用不用 |
+|---|---|
+| 要真实的立体感、体积光、折射、软阴影 | 用。这类效果用 DOM/SVG 做不出来 |
+| 只是要个渐变、发光、粒子 | 不用。CSS 更快更好调 |
+| 全片 2 分钟，3D 只出现在 1–2 个镜头 | 用（做成单独一场的 canvas，其余照旧） |
+| 全片都要 3D | 慎重：改一个细节要重渲 8 分钟，"改稿两分钟"就废了 |
+
+**推荐姿势**：主体仍然是 DOM + SVG，只在需要立体感的那一镜里嵌一个 `<canvas>`，其余不动。这样 95% 的改动还是秒级。
+
+---
+
+## 四、最小可运行骨架
+
+```html
+<canvas id="c" width="1920" height="1080"></canvas>
+<script>
+const gl = document.getElementById("c").getContext("webgl",
+  { antialias:false, alpha:false, preserveDrawingBuffer:true,
+    powerPreference:"high-performance" });
+// …编译 shader、绑定一个铺满屏幕的三角形…
+const st = { t: 0 };
+const draw = () => { gl.uniform1f(uTime, st.t); gl.drawArrays(gl.TRIANGLES, 0, 3); };
+draw();                         // 第 3 条：首帧先画一次
+const tl = gsap.timeline({ paused: true });
+tl.to(st, { t: 3, duration: 3, ease: "none", onUpdate: draw }, 0);
+window.__timelines["<id>"] = tl; // 第 1 条：时间只从时间线来
+</script>
+```
+
+完整可跑样例见工作区的 `gpu-probe/`（一个 SDF 环面 + 软阴影 + 高光，90 帧 9 秒出片）。
+
+---
+
+## 五、踩坑
+
+| 现象 | 原因 | 解法 |
+|---|---|---|
+| 出片全黑 | 没开 `preserveDrawingBuffer` | 见第二节第 2 条 |
+| 预览正常，导出闪 | 用了墙钟时间 | 见第二节第 1 条 |
+| 第一帧黑 | 没主动画首帧 | 见第二节第 3 条 |
+| 越渲越慢 | 每个 worker 各编译一次 shader | 正常，摊到几百帧里可忽略 |
+| 帧率跳 | 用了 `requestAnimationFrame` 驱动 | 时间线 seek 已经足够，删掉 rAF |
+
+---
+
 ## 附录 H · 商用与系列化
 # 商用与系列化
 
@@ -2060,7 +2161,9 @@ node make.js reel all      # 最后才拼整条展示片
 
 ## 六、不学的部分
 
-- **Canvas / WebGL / 光线步进 3D**：它是纯 Canvas + 自研渲染器，我们是 HTML + GSAP + HyperFrames。3D 光影风格一条要渲 25–80 分钟，和"改稿两分钟"冲突。
+- **Canvas / WebGL / 光线步进 3D**：它说 3D 风格一条要渲 25–80 分钟，但那是纯 CPU 软渲染。
+  我们在 RX 7900 GRE 上实测，同样的光线步进走 ANGLE 是 39 ms/帧，154 秒成片约 8 分钟，比 DOM 还快。
+  所以**不是不能做，是不划算做整片**——见 `docs/流程/着色器与3D.md`：只在需要立体感的那一镜里嵌 canvas。
 - **100 条的大而全**：它是展示仓库，不是生产工具。我们需要的是"能反复改同一条"，不是"堆 100 条"。
 
 ---
