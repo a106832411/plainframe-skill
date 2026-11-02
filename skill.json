@@ -1,7 +1,7 @@
 {
   "name": "plainframe-skill",
   "displayName": "plainframe · 中文科普短视频技能",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "updated": "2026-11-02",
   "entry": "SKILL.md",
   "singleFile": "dist/plainframe-all.md",

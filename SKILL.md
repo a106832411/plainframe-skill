@@ -139,6 +139,14 @@ ffmpeg -y -i silent.mp4 -i mix.wav -c:v libx264 -crf 21 -preset medium `
        -pix_fmt yuv420p -c:a aac -b:a 192k -ar 48000 -shortest "deliverables/<名字>.mp4"
 ```
 
+**渲染提速**（参数都在 CLI 里，先用短片验一次再写死）：
+
+| 参数 | 作用 | 什么时候用 |
+|---|---|---|
+| `-w 4` | 并行 worker，每个约 256MB 内存、一个 Chrome | 默认 `auto`，但走 `drawelement` 捕获时会被压到 1；看渲染日志里的 `workerCount` 确认实际值 |
+| `-q draft` | 草稿画质，出得快 | 改稿阶段反复看；定稿再跑 `-q looks`（默认，CRF 16） |
+| `--resume` | 分段捕获，跳过上一轮已完成且校验通过的段 | 配合 `$env:HF_SEGMENTED_CAPTURE='true'`；改一两场后重渲，不用从头再来 |
+
 出片后**逐场抽帧检查**（每场 1 帧，加上每个动效的关键时刻 2 帧），确认没有元素提前出现、没有重影、没有文字压在字幕上。
 用 `python tools/contact_sheet.py out.mp4 -n 16 -c 4` 出一张接触表，或 `--frames-dir frames` 把单帧落盘逐个看。
 

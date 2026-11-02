@@ -9,7 +9,7 @@
 [![Node](https://img.shields.io/badge/node-%E2%89%A522-339933?style=flat-square&logo=node.js&logoColor=white)](#)
 [![GSAP](https://img.shields.io/badge/GSAP-3.13-88CE02?style=flat-square)](#)
 [![styles](https://img.shields.io/badge/styles-18-555555?style=flat-square)](#能做出什么)
-[![version](https://img.shields.io/badge/version-2.5.0-555555?style=flat-square)](#)
+[![version](https://img.shields.io/badge/version-2.5.1-555555?style=flat-square)](#)
 
 </div>
 
