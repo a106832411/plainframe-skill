@@ -8,6 +8,7 @@
 | [HeyChengC/vibe-knowledge-film](https://github.com/HeyChengC/vibe-knowledge-film) | 无旁白知识短片，讲“讲解设计”而不是模板 | 配图 vs 讲解的判据、找形象的方法 |
 | [wchhywizd/vibe-knowledge-interactive](https://github.com/wchhywizd/vibe-knowledge-interactive) | 100 条爆款样本 + 25 个选题，互动式开场 | 选题库思路 |
 | [Win-Hao/knowledge-video](https://github.com/Win-Hao/knowledge-video) | 1–3 分钟口播讲解，HyperFrames 渲染 | 先出开场、beat 对齐 |
+| [andyhuo520/vibe-knowledge](https://github.com/andyhuo520/vibe-knowledge) | Claude Code skill，44 套风格（8 个家族），有旁白，每句有出处 | 出处脚注、AI 示意标注、组件库思路 |
 | [wchhywizd/vibe-knowledge-interactive · vibe-explainer-video](https://github.com/wchhywizd/vibe-knowledge-interactive) | 168 拍 / 75 BPM / 134 秒，无旁白，中英字幕，工具卡 + 金句 + 预测卡 | 拍表结构、七类自检、音效对齐 |
 
 它们的共同点：**都不是模板库，是判断标准**。下面只摘能直接用的。
@@ -138,3 +139,30 @@ Vibe知识大赏 | 《标题》一句话钩子？
 - `templates/build.py`：加 `--novoice`，按字数估时长（`cps` 可配，默认 4.2 字/秒）
 - `templates/mix.py`：无口播时只出 BGM，0.8 秒淡入淡出
 - `gen_tts.mjs`：保留，但只在口播版里用
+
+---
+
+## 九、同源仓库：vibe-knowledge（44 套 / 两档制作）
+
+[andyhuo520/vibe-knowledge](https://github.com/andyhuo520/vibe-knowledge)：Claude Code 技能，44 套风格分 8 个家族，有旁白，**每句有出处**。
+
+它的流程和我们几乎是同一套——六母版、四道确认、`facts.md`、质检五项（接触表 / OCR 回读 / 响度 / 冻结 / BGM）——这说明这套流程不是谁发明的，是这批人各自收敛出来的。真正比我们多的有四样：
+
+| | 它怎么做 | 我们 | 判定 |
+|---|---|---|---|
+| 出处脚注 | 每个事实镜头挂一行小字：年份 · 地点 · 人名 + 文献，片尾再列总文献 | 只有片尾文献 | **已采纳**，写进 `SKILL.md` 第四节第 8 条 |
+| AI 示意标注 | AI 生成的画面一律标「AI 示意」，推测标「一种假说」 | 没有这条规则 | **已采纳**，同上 |
+| 组件库 `know.js` | 配图推拉、计数器、出处脚注、印章、线稿剖面图做成可复用元件 | 每场手写 HTML | 记下，暂不做（见下） |
+| 子 agent 对抗审查 | 旁白写完，派一个独立 agent 专查钩子 / 出处 / 字数，改完再出分镜 | 只有事后质检 | 记下，值得试 |
+| 两档制作 | 基础档纯代码零成本；增强档把做不好的镜头交给生成模型，先报价再生成 | 纯代码 | 不学（见下） |
+
+### 为什么不学 44 套和两档制作
+
+- **44 套**是同一渲染器下的配色 × 构图组合。我们 18 套已覆盖常见题材，再往上加，选择成本比收益高。
+- **两档制作**依赖外部生成平台的 MCP 和积分余额，会把「纯代码、可复现、零成本重渲」这条底线破掉。需要写实镜头的片子，本来就不是这套流程的目标。
+
+### 组件库值得做，但别现在做
+
+`know.js` 的思路是对的：五种动作写一次、到处用。但它绑死在它的 `film.js` 上，直接搬会带进另一套渲染架构——和 `docs/参考/与-hyperframes-vibe-169-的冲突.md` 里同一个坑。
+
+正确做法是在 `templates/` 里长自己的元件，从最常用的三个开始：**计数器、出处脚注、印章**。等第三、四条片子都用到同一个元件了再抽出来，别先建库再用。
