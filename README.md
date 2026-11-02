@@ -9,7 +9,7 @@
 [![Node](https://img.shields.io/badge/node-%E2%89%A522-339933?style=flat-square&logo=node.js&logoColor=white)](#)
 [![GSAP](https://img.shields.io/badge/GSAP-3.13-88CE02?style=flat-square)](#)
 [![styles](https://img.shields.io/badge/styles-18-555555?style=flat-square)](#能做出什么)
-[![version](https://img.shields.io/badge/version-2.5.1-555555?style=flat-square)](#)
+[![version](https://img.shields.io/badge/version-2.6.0-555555?style=flat-square)](#)
 
 </div>
 
@@ -155,7 +155,7 @@ plainframe-skill/
 ├── skill.json            版本、依赖、各平台接入方式
 ├── dist/                 单文件版（喂给模型用）
 ├── docs/                 规则文档，索引见 docs/README.md
-│   ├── 流程/             母版与流程、花叔设计法、锚词与重拍、风格库
+│   ├── 流程/             母版与流程、花叔设计法、锚词与重拍、风格库、商用与系列化
 │   ├── 发布/             发布包（标题 / 话题 / 封面 / 配文）、插件打包
 │   └── 参考/             参考拆解、七个仓库、与 vibe-169 的边界
 ├── styles/               18 套可运行样例

@@ -139,6 +139,9 @@ ffmpeg -y -i silent.mp4 -i mix.wav -c:v libx264 -crf 21 -preset medium `
        -pix_fmt yuv420p -c:a aac -b:a 192k -ar 48000 -shortest "deliverables/<名字>.mp4"
 ```
 
+**顺序**：写完一场，先 `hyperframes snapshot --at <该场时间>` 出一帧，确认构图再往下写；
+整片渲完再抽帧检查，是最慢的做法（5 分钟渲一次，改一个字又要 5 分钟）。
+
 **渲染提速**（参数都在 CLI 里，先用短片验一次再写死）：
 
 | 参数 | 作用 | 什么时候用 |

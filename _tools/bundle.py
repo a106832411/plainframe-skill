@@ -50,6 +50,9 @@ parts.append(read(os.path.join(ROOT, "docs", "发布", "发布包.md")))
 parts.append("\n---\n\n## 附录 E · 锚词与 17 秒重拍\n")
 parts.append(read(os.path.join(ROOT, "docs", "流程", "锚词与重拍.md")))
 
+parts.append("\n---\n\n## 附录 H · 商用与系列化\n")
+parts.append(read(os.path.join(ROOT, "docs", "流程", "商用与系列化.md")))
+
 parts.append("\n---\n\n## 附录 G · 风格库（18 套）\n")
 parts.append(read(os.path.join(ROOT, "docs", "流程", "风格库.md")))
 

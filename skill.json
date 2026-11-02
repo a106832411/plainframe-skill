@@ -1,7 +1,7 @@
 {
   "name": "plainframe-skill",
   "displayName": "plainframe · 中文科普短视频技能",
-  "version": "2.5.1",
+  "version": "2.6.0",
   "updated": "2026-11-02",
   "entry": "SKILL.md",
   "singleFile": "dist/plainframe-all.md",
@@ -49,7 +49,7 @@
     "previews/": "18 张风格预览图",
     "MEMORY.md": "一页规则：写作、画面、踩坑、交付、命令",
     "platforms/": "四个平台的插件/组合包清单",
-    "docs/": "规则文档，按用途分三类：流程（母版 / 花叔设计法 / 锚词与重拍 / 风格库）、发布（发布包：标题+话题+封面+配文 / 插件打包）、参考（参考拆解 / 七个仓库 / 与 vibe-169 的边界）；入口索引见 docs/README.md"
+    "docs/": "规则文档，按用途分三类：流程（母版 / 花叔设计法 / 锚词与重拍 / 风格库 / 商用与系列化）、发布（发布包：标题+话题+封面+配文 / 插件打包）、参考（参考拆解 / 七个仓库 / 与 vibe-169 的边界）；入口索引见 docs/README.md"
   },
   "memory": "MEMORY.md",
   "howto_plugin": "平台提示「没有声明组合包」时：把 platforms/<平台>/ 下的清单复制到包根目录并按平台要求改名"
