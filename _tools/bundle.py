@@ -44,11 +44,14 @@ for p in sorted(glob.glob(os.path.join(ROOT, "templates", "*"))):
             "ps1": "powershell", "tpl": "html"}.get(name.rsplit(".", 1)[-1], "")
     parts.append("\n### templates/%s\n\n```%s\n%s\n```\n" % (name, lang, read(p)))
 
-parts.append("\n---\n\n## 附录 D · 封面与标题\n")
-parts.append(read(os.path.join(ROOT, "docs", "发布", "封面与标题.md")))
+parts.append("\n---\n\n## 附录 D · 发布包（标题 / 话题 / 封面 / 配文）\n")
+parts.append(read(os.path.join(ROOT, "docs", "发布", "发布包.md")))
 
 parts.append("\n---\n\n## 附录 E · 锚词与 17 秒重拍\n")
 parts.append(read(os.path.join(ROOT, "docs", "流程", "锚词与重拍.md")))
+
+parts.append("\n---\n\n## 附录 G · 风格库（18 套）\n")
+parts.append(read(os.path.join(ROOT, "docs", "流程", "风格库.md")))
 
 parts.append("\n---\n\n## 附录 F · 本技能与 hyperframes-vibe-169 的边界\n")
 parts.append(read(os.path.join(ROOT, "docs", "参考", "与-hyperframes-vibe-169-的冲突.md")))
