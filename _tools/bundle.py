@@ -45,10 +45,13 @@ for p in sorted(glob.glob(os.path.join(ROOT, "templates", "*"))):
     parts.append("\n### templates/%s\n\n```%s\n%s\n```\n" % (name, lang, read(p)))
 
 parts.append("\n---\n\n## 附录 D · 封面与标题\n")
-parts.append(read(os.path.join(ROOT, "docs", "封面与标题.md")))
+parts.append(read(os.path.join(ROOT, "docs", "发布", "封面与标题.md")))
 
 parts.append("\n---\n\n## 附录 E · 锚词与 17 秒重拍\n")
-parts.append(read(os.path.join(ROOT, "docs", "锚词与重拍.md")))
+parts.append(read(os.path.join(ROOT, "docs", "流程", "锚词与重拍.md")))
+
+parts.append("\n---\n\n## 附录 F · 本技能与 hyperframes-vibe-169 的边界\n")
+parts.append(read(os.path.join(ROOT, "docs", "参考", "与-hyperframes-vibe-169-的冲突.md")))
 
 parts.append("\n---\n\n## 附录 C · 风格样例（仅色值与母题，完整代码见 styles/）\n")
 parts.append("| 文件 | 说明 |\n|---|---|\n")

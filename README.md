@@ -9,7 +9,7 @@
 [![Node](https://img.shields.io/badge/node-%E2%89%A522-339933?style=flat-square&logo=node.js&logoColor=white)](#)
 [![GSAP](https://img.shields.io/badge/GSAP-3.13-88CE02?style=flat-square)](#)
 [![styles](https://img.shields.io/badge/styles-18-555555?style=flat-square)](#风格)
-[![version](https://img.shields.io/badge/version-2.2.0-555555?style=flat-square)](#)
+[![version](https://img.shields.io/badge/version-2.3.0-555555?style=flat-square)](#)
 
 </div>
 
@@ -21,7 +21,7 @@
 
 以 60 秒为例：
 
-- 20–30 句口播，每句 2–4 秒
+- 20–24 句口播，每句 2–4 秒
 - 10–16 场，每场一个图形，不重复
 - 每句一张字幕、一个动作，说完就撤
 - 背景音乐跟着人声自动闪避
@@ -266,7 +266,11 @@ plainframe-skill/
 ├── CHECKLIST.md          出片前逐项检查
 ├── skill.json            版本、依赖、各平台接入方式
 ├── dist/                 单文件版
-├── docs/                 规则文档：发布文案、封面与标题、母版与流程、锚词与重拍、花叔设计法
+├── docs/                 规则文档
+│   ├── 流程/             母版、花叔设计法、锚词与重拍
+│   ├── 发布/             发布文案、封面与标题
+│   ├── 参考/             参考拆解、七个仓库、与 vibe-169 的边界
+│   └── 打包/             插件打包
 ├── styles/               18 套可运行样例
 ├── previews/             18 张预览图
 ├── templates/            骨架、构建、配音（可选）、混音、BGM
