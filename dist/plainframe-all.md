@@ -6,16 +6,17 @@
 {
   "name": "plainframe-skill",
   "displayName": "plainframe · 中文科普短视频技能",
-  "version": "2.1.0",
-  "updated": "2026-10-22",
+  "version": "2.2.0",
+  "updated": "2026-11-02",
   "entry": "SKILL.md",
   "singleFile": "dist/plainframe-all.md",
-  "summary": "用代码做中文科普短视频：两条路线（口播 / 无口播），18 套风格，自带自检工具。",
+  "summary": "用代码做中文科普短视频：两条路线（口播 / 无口播），18 套风格，锚词与 17 秒重拍结构，自带自检工具。",
   "keywords": [
     "科普短视频",
     "HyperFrames",
     "GSAP",
     "分镜",
+    "锚词",
     "TTS",
     "抖音",
     "explainer"
@@ -24,7 +25,8 @@
     "node": ">=22",
     "ffmpeg": true,
     "python": [
-      "numpy"
+      "numpy",
+      "Pillow"
     ],
     "npm": [
       "msedge-tts（仅口播版需要）"
@@ -42,17 +44,17 @@
     "generic": "任何能读文件的 Agent：读 SKILL.md 即可（单文件版见 dist/plainframe-all.md）"
   },
   "layout": {
-    "SKILL.md": "主文档：工作流 + 18 套风格 + 动效引擎 + 文字排布 + 画面密度 + 两条路线 + 踩坑",
+    "SKILL.md": "主文档：工作流 + 18 套风格 + 动效引擎 + 文字排布 + 画面密度 + 两条路线 + 锚词与重拍 + 踩坑",
     "CHECKLIST.md": "出片前逐项检查",
     "styles/": "18 套可运行风格样例（5 秒单场景）",
-    "templates/": "脚手架：骨架 / 构建 / 配音 / 混音 / 抽帧",
+    "templates/": "脚手架：骨架 / 构建 / 配音 / 混音 / BGM",
     "dist/plainframe-all.md": "把所有内容打成一个文件，方便一键喂给模型",
     "_tools/": "开发用脚本（生成风格、打包），使用时可忽略",
-    "tools/": "beats.py（拍表→时间线）、sheet.py（抽帧联系表）、qa.py（自动自检）",
+    "tools/": "beats.py（拍表→时间线）、contact_sheet.py（抽帧 / 接触表 / 单帧落盘）、qa.py（自动自检）",
     "previews/": "18 张风格预览图",
     "MEMORY.md": "一页规则：写作、画面、踩坑、交付、命令",
     "platforms/": "四个平台的插件/组合包清单",
-    "docs/插件打包.md": "组合包声明与打包命令"
+    "docs/": "规则文档：发布文案、封面与标题、母版与流程、锚词与重拍、花叔设计法、插件打包、参考拆解"
   },
   "memory": "MEMORY.md",
   "howto_plugin": "平台提示「没有声明组合包」时：把 platforms/<平台>/ 下的清单复制到包根目录并按平台要求改名"
@@ -196,6 +198,7 @@ ffmpeg -y -i silent.mp4 -i mix.wav -c:v libx264 -crf 21 -preset medium `
 ```
 
 出片后**逐场抽帧检查**（每场 1 帧，加上每个动效的关键时刻 2 帧），确认没有元素提前出现、没有重影、没有文字压在字幕上。
+用 `python tools/contact_sheet.py out.mp4 -n 16 -c 4` 出一张接触表，或 `--frames-dir frames` 把单帧落盘逐个看。
 
 ---
 
@@ -494,14 +497,12 @@ mix = voice + bg * 0.26 * duck
 |---|---|---|
 | `ValueError: unsupported format character` | python `%` 格式化遇到 JS 里的 `100%`、`50% 50%` | 字符串拼接或 `%%`；别用 `%` 拼 JS |
 | SVG 元素飞出画面 | 用了 `transformOrigin`（按 CSS 盒子算） | SVG 一律用 `svgOrigin: "cx cy"` |
-| 元素提前出现 | 只做了 `fromTo`，元素本身没隐藏 | 默认 `display:none` / `opacity:0`，到点用 `tl.set(display:"inline")` 开门 |
-| `fromTo` 互相覆盖 | `immediateRender` 会提前写状态 | 同一元素只写一次 `fromTo`，其余用 `set` + `to` |
+| 元素提前出现 / 光圈从第 0 秒就挂着 / 两条 `fromTo` 打架 | 同一个病根：`fromTo` 的 from 值在初始化就写进元素（`immediateRender`） | 同一元素只写一次 `fromTo`，其余用 `set` + `to`；或先 `display:none` 再开门（详见第四节第 7 条） |
 | 渲染报 `Permission denied` | 成片被播放器占用 | 换文件名输出 |
 | lint 报多入口 | 目录里有两个 `data-composition-id` 的 html | 模板改名 `base.tpl`，只留 `index.html` |
 | 中文字幕重复/缺失 | 字幕层没插入或文案与画面重复 | 字幕层统一由 `SUBS` 生成；大标题已表达的内容不再上字幕 |
 | 成片声音是上一条的 | 混音脚本复用了旧项目的音频目录（`_tts` vs `_tts2`） | 每条片子独立音频目录；`mix.py` 已内置「音频长度超过时间槽」的报错 |
 | 时间轴对、声音错 | 画面按 A 的时长排、音频混的是 B 的文件 | 看混音日志：`max gap` 应≈设定的句间停顿，异常就是文件错了 |
-| 光圈/元素“从第 0 秒就在” | `fromTo` 的 from 值在初始化就生效 | 用 `set` + `to`，或先 `display:none` 再开门 |
 | 两场同时半透明（双重残影） | 淡出与淡入时间重叠 | 先出后进，中间留 0.03s 空档 |
 | 文字压住图形 | 只改了文字宽度、没改图形坐标 | 图形左边界 ≥ 960；横贯画面的场把文字挪到顶栏 |
 | 长句折行、短句太空 | 固定字号 | 按字数自动选 76/64/54px |
@@ -583,7 +584,7 @@ _tts2/
 | 工具 | 作用 | 用法 |
 |---|---|---|
 | `tools/beats.py` | 拍表 → 时间线（画面/字幕/转场读同一张表） | `python beats.py beats.json --bpm 100` |
-| `tools/sheet.py` | 按时间点抽帧拼联系表 | `python sheet.py out.mp4 --even 12` |
+| `tools/contact_sheet.py` | 抽帧拼接触表；`--frames-dir` 顺手把单帧落盘 | `python tools/contact_sheet.py out.mp4 -n 12`；`--at 3,9.5,13.6` 指定秒数；默认输出到当前目录 |
 | `tools/qa.py` | 自动自检：规格 / 静止段 / 黑屏 / 音轨 | `python qa.py out.mp4` |
 
 `qa.py` 会直接报出「静止超过 2 秒」的时间点——对应第十一节的画面密度规则。
@@ -1140,31 +1141,6 @@ json.dump({"total": total, "novoice": NOVOICE,
           io.open(os.path.join(OUT_DIR, "offsets.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 
 print("mode %s / total %.1fs / %d 句 / cuts %s" % ("无口播" if NOVOICE else "配音", total, len(rows), {k: round(v, 2) for k, v in cuts.items()}))
-
-```
-
-### templates/check_frames.ps1
-
-```powershell
-# 逐场抽帧检查
-# 用法： .\check_frames.ps1 -Video deliverables\成片.mp4 -Out frames
-param(
-  [string]$Video = "silent.mp4",
-  [string]$Out = "frames",
-  [double]$Step = 6.5
-)
-
-New-Item -ItemType Directory -Force -Path $Out | Out-Null
-$dur = [double](ffprobe -v error -show_entries format=duration -of csv=p=0 $Video)
-$t = 1.0
-$i = 0
-while ($t -lt $dur - 0.3) {
-  $i++
-  $f = Join-Path $Out ("f{0:D2}_{1:N1}.jpg" -f $i, $t)
-  ffmpeg -y -loglevel error -ss $t -i $Video -frames:v 1 -q:v 2 $f
-  $t += $Step
-}
-Write-Output "duration=$dur frames=$i out=$Out"
 
 ```
 
@@ -1971,7 +1947,7 @@ tl.fromTo("#new", { scale: 5 }, { scale: 1, duration: 0.5, ease: "power2.out" },
 | 寓言 | 每场一幅扁平插画 | 一个行为或心理机制 |
 | 夜曲 | 蓝黑夜空 + 细星点 + 一个光点 | 一个抽象概念 |
 
-**底色随年代走**是最省力的一招：1932 用暖棕黑、1974 用墨绿、1986 用深紫，只换一层径向渐变，观众立刻觉得「换了地方」。做法见本仓 `项目/` 里的 `tintWarm / tintGreen / tintViolet` 三层，`opacity` 交叉淡入即可，不要改主体颜色。
+**底色随年代走**是最省力的一招：1932 用暖棕黑、1974 用墨绿、1986 用深紫，只换一层径向渐变，观众立刻觉得「换了地方」。做法：铺三层全屏 div（`tintWarm` / `tintGreen` / `tintViolet`），每层一个径向渐变、初始 `opacity: 0`，只在章节边界交叉淡入淡出，主体颜色一律不动。
 
 **结尾回到开头**：同一个画面再出现一次，但意思变了。这是四条片都做的事，也是最便宜的记忆点。
 

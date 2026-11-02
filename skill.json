@@ -1,16 +1,17 @@
 {
   "name": "plainframe-skill",
   "displayName": "plainframe · 中文科普短视频技能",
-  "version": "2.1.0",
-  "updated": "2026-10-22",
+  "version": "2.2.0",
+  "updated": "2026-11-02",
   "entry": "SKILL.md",
   "singleFile": "dist/plainframe-all.md",
-  "summary": "用代码做中文科普短视频：两条路线（口播 / 无口播），18 套风格，自带自检工具。",
+  "summary": "用代码做中文科普短视频：两条路线（口播 / 无口播），18 套风格，锚词与 17 秒重拍结构，自带自检工具。",
   "keywords": [
     "科普短视频",
     "HyperFrames",
     "GSAP",
     "分镜",
+    "锚词",
     "TTS",
     "抖音",
     "explainer"
@@ -19,7 +20,8 @@
     "node": ">=22",
     "ffmpeg": true,
     "python": [
-      "numpy"
+      "numpy",
+      "Pillow"
     ],
     "npm": [
       "msedge-tts（仅口播版需要）"
@@ -37,17 +39,17 @@
     "generic": "任何能读文件的 Agent：读 SKILL.md 即可（单文件版见 dist/plainframe-all.md）"
   },
   "layout": {
-    "SKILL.md": "主文档：工作流 + 18 套风格 + 动效引擎 + 文字排布 + 画面密度 + 两条路线 + 踩坑",
+    "SKILL.md": "主文档：工作流 + 18 套风格 + 动效引擎 + 文字排布 + 画面密度 + 两条路线 + 锚词与重拍 + 踩坑",
     "CHECKLIST.md": "出片前逐项检查",
     "styles/": "18 套可运行风格样例（5 秒单场景）",
-    "templates/": "脚手架：骨架 / 构建 / 配音 / 混音 / 抽帧",
+    "templates/": "脚手架：骨架 / 构建 / 配音 / 混音 / BGM",
     "dist/plainframe-all.md": "把所有内容打成一个文件，方便一键喂给模型",
     "_tools/": "开发用脚本（生成风格、打包），使用时可忽略",
-    "tools/": "beats.py（拍表→时间线）、sheet.py（抽帧联系表）、qa.py（自动自检）",
+    "tools/": "beats.py（拍表→时间线）、contact_sheet.py（抽帧 / 接触表 / 单帧落盘）、qa.py（自动自检）",
     "previews/": "18 张风格预览图",
     "MEMORY.md": "一页规则：写作、画面、踩坑、交付、命令",
     "platforms/": "四个平台的插件/组合包清单",
-    "docs/插件打包.md": "组合包声明与打包命令"
+    "docs/": "规则文档：发布文案、封面与标题、母版与流程、锚词与重拍、花叔设计法、插件打包、参考拆解"
   },
   "memory": "MEMORY.md",
   "howto_plugin": "平台提示「没有声明组合包」时：把 platforms/<平台>/ 下的清单复制到包根目录并按平台要求改名"

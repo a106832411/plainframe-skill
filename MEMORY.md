@@ -81,7 +81,7 @@
 | 历史 | 单条提交，改完用 `amend` + 强推 |
 | 风格 | 18 套，6 种构图骨架（A 左文右图 / B 居中 / C 底文 / D 竖排 / E 全屏 / F 分栏） |
 | 路线 | 口播（TTS + 混音）/ 无口播（字幕或拍表，BGM-only） |
-| 工具 | `beats.py` 拍表 / `sheet.py` 联系表 / `qa.py` 自检 |
+| 工具 | `beats.py` 拍表 / `contact_sheet.py` 接触表 / `qa.py` 自检 |
 
 ---
 
@@ -99,5 +99,5 @@ python mix.py ./_tts .
 
 # 自检
 python tools/qa.py out.mp4
-python tools/sheet.py out.mp4 --even 12
+python tools/contact_sheet.py out.mp4 -n 12
 ```

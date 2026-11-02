@@ -9,7 +9,7 @@
 [![Node](https://img.shields.io/badge/node-%E2%89%A522-339933?style=flat-square&logo=node.js&logoColor=white)](#)
 [![GSAP](https://img.shields.io/badge/GSAP-3.13-88CE02?style=flat-square)](#)
 [![styles](https://img.shields.io/badge/styles-18-555555?style=flat-square)](#风格)
-[![version](https://img.shields.io/badge/version-1.3.0-555555?style=flat-square)](#)
+[![version](https://img.shields.io/badge/version-2.2.0-555555?style=flat-square)](#)
 
 </div>
 
@@ -210,12 +210,13 @@
 配套三个工具：
 
 ```bash
-python tools/beats.py beats.json --bpm 100   # 拍表 → 时间线
-python tools/sheet.py out.mp4 --even 12      # 抽帧联系表
-python tools/qa.py out.mp4                   # 自动自检
+python tools/beats.py beats.json --bpm 100      # 拍表 → 时间线
+python tools/contact_sheet.py out.mp4 -n 12     # 抽帧接触表（--at 3,15,27 指定秒数）
+python tools/qa.py out.mp4                      # 自动自检
 ```
 
 `qa.py` 会检查分辨率、音轨、黑屏，并报出所有「静止超过 2 秒」的段落。
+`contact_sheet.py` 默认把接触表落在**当前目录**，不落在成片旁边——成品文件夹只该放成片。
 
 ## 快速开始
 
@@ -252,7 +253,7 @@ $env:HYPERFRAMES_BROWSER_PATH = "<chrome-headless-shell 路径>"
 | WorkBuddy | 放进 `skills/plainframe-skill/` |
 | Qoder | 放进 `.qoder/skills/`，或直接 `@SKILL.md` |
 
-`dist/plainframe-all.md` 是单文件版，约 51 KB，主文档、检查清单、全部模板源码都在里面。跑一遍 `_tools/bundle.py` 就能重新生成。
+`dist/plainframe-all.md` 是单文件版，主文档、检查清单、模板源码、附录规则都在里面。跑一遍 `_tools/bundle.py` 就能重新生成。
 
 ---
 
@@ -260,14 +261,16 @@ $env:HYPERFRAMES_BROWSER_PATH = "<chrome-headless-shell 路径>"
 
 ```
 plainframe-skill/
-├── SKILL.md              主文档：工作流、风格、动效引擎、文字规则、踩坑
+├── SKILL.md              主文档：工作流、风格、动效引擎、文字规则、锚词、踩坑
 ├── MEMORY.md             一页规则（新会话先读）
 ├── CHECKLIST.md          出片前逐项检查
 ├── skill.json            版本、依赖、各平台接入方式
 ├── dist/                 单文件版
-├── docs/发布文案.md        发布用的句式与结构模板
+├── docs/                 规则文档：发布文案、封面与标题、母版与流程、锚词与重拍、花叔设计法
 ├── styles/               18 套可运行样例
-├── templates/            骨架、构建、配音（可选）、混音、抽帧
+├── previews/             18 张预览图
+├── templates/            骨架、构建、配音（可选）、混音、BGM
+├── tools/                拍表、抽帧接触表、自检
 └── _tools/               生成风格、打包单文件
 ```
 
@@ -283,7 +286,7 @@ plainframe-skill/
 
 ## 依赖
 
-Node.js 22 以上、FFmpeg、hyperframes CLI、Python 的 numpy、chrome-headless-shell。
+Node.js 22 以上、FFmpeg、hyperframes CLI、Python 的 numpy 与 Pillow、chrome-headless-shell。
 口播版另需 `msedge-tts`（无口播版不需要）。
 
 ---
